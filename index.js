@@ -44,7 +44,9 @@ app.post("/api/users/addToCart", async (req, res) => {
   }
 
 });
+
 app.use("/api/users", require("./routes/users"));
+
 app.use("/api/v1/products", productRouter);
 
 const startApp = async () => {
