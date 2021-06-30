@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const userController = require("../controllers/userController")
+
 //Bring in the User Registration function
 const {userRegister,userLogin,checkRole,userAuth,serializeUser} = require("../controllers/authController");
 
@@ -47,6 +49,8 @@ router.get("/admin-protected",userAuth,checkRole(['admin']),async(req,res) => {r
 router.get("/superadmin-protected",userAuth,checkRole(['superadmin']),async(req,res) => {return res.json("super admin")});
 
 router.get("/superadminandadmin-protected",userAuth,checkRole(['superadmin','admin']),async(req,res) => {return res.json("super admin and admin")});
+
+router.post('/addToCart', userController.addToCart);
 
 module.exports = router;
 
