@@ -1,0 +1,26 @@
+<h3><a class="btn btn-secondary" href="/item"><i class="fa fa-plus"></i> Create New</a> item List</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>item Name</th>
+            <th>item Category</th>
+            <th>item Description</th>
+            <th>item Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td>{{this.itemName}}</td>
+            <td>{{this.itemCategory}}</td>
+            <td>{{this.itemDescription}}</td>
+            <td>{{this.itemPrice}}</td>
+            <td>
+                <a href="/item/{{this.itemName}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="/employee/delete/{{this.itemName}}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
