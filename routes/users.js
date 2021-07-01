@@ -50,7 +50,14 @@ router.get("/superadmin-protected",userAuth,checkRole(['superadmin']),async(req,
 
 router.get("/superadminandadmin-protected",userAuth,checkRole(['superadmin','admin']),async(req,res) => {return res.json("super admin and admin")});
 
+// Adding the product to cart and wishlist
 router.post('/addToCart', userController.addToCart);
+router.post('/addToWishlist', userController.addToWishlist);
+
+
+// Removing the product from cart and wishlist
+router.patch('/removeFromCart', userController.removeFromCart);
+router.patch('/removeFromWishlist', userController.removeFromWishlist);
 
 module.exports = router;
 
