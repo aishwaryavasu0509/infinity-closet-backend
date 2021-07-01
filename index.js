@@ -5,7 +5,7 @@ const passport = require("passport");
 const { connect } = require("mongoose");
 const { success, error } = require("consola");
 const productRouter = require("./routes/productRouter");
-const userRouter = require("./routes/users")
+const userRouter = require("./routes/users");
 
 // Bring in the app constants
 const { DB, PORT } = require("./config");
@@ -22,7 +22,6 @@ require("./middlewares/passport")(passport);
 
 //User Router Middlewares
 
-
 app.use("/api/users", userRouter);
 
 app.use("/api/v1/products", productRouter);
@@ -31,9 +30,10 @@ const startApp = async () => {
   try {
     //connection with DB
     await connect(DB, {
-      useFindAndModify: true,
-      useUnifiedTopology: true,
       useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
     });
     success({
       message: `Sucessfully connected to the database\n ${DB}`,
