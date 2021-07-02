@@ -1,4 +1,5 @@
 const User = require("../model/userSchema");
+const Product = require("../model/productSchema");
 
 // Add the item to the cart
 exports.addToCart = async (req, res) => {
@@ -16,10 +17,14 @@ exports.addToCart = async (req, res) => {
       }
     );
     // console.log(response);
-    res.send("ok");
+    res.status(200).json({
+      status: "success",
+      message: "item added successfully",
+    });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).send({
+      status: "fail",
       message: "fail to add",
     });
   }
@@ -39,10 +44,14 @@ exports.addToWishlist = async (req, res) => {
       }
     );
     // console.log(response);
-    res.send("ok");
+    res.status(200).json({
+      status: "success",
+      message: "item added successfully",
+    });
   } catch (error) {
     console.log(error);
     res.status(404).send({
+      status: "fail",
       message: "fail to add",
     });
   }
@@ -65,9 +74,9 @@ exports.removeFromCart = async (req, res) => {
       }
     );
     console.log(response);
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
-      message: "Item successfully removed from the cart."
+      message: "Item successfully removed from the cart.",
     });
   } catch (err) {
     console.log(err);
@@ -95,15 +104,34 @@ exports.removeFromWishlist = async (req, res) => {
       }
     );
     console.log(response);
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
-      message: "Item successfully removed from the cart."
+      message: "Item successfully removed from the cart.",
     });
   } catch (err) {
     console.log(err);
     res.status(404).json({
       status: "fail",
       message: err.message,
+    });
+  }
+};
+
+// Get Cart Items
+exports.getMultipleItems = async (req, res) => {
+  try {
+    const IDs = req.query.id.split(",");
+    const cartItems = await Product.find({ _id: { $in: IDs } });
+    res.status(200).send({
+      status: "success",
+      result: cartItems.length,
+      data: cartItems,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      status: "fail",
+      message: error,
     });
   }
 };

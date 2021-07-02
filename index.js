@@ -5,32 +5,34 @@ const passport = require("passport");
 const { connect } = require("mongoose");
 const { success, error } = require("consola");
 const productRouter = require("./routes/productRouter");
-const userRouter = require("./routes/users");
-
-
+const userRouter = require("./routes/userRouter");
 
 //const express = require('express');
-const path = require('path');
-const exphbs = require('express-handlebars');
+const path = require("path");
+const exphbs = require("express-handlebars");
 //const bodyparser = require('body-parser');
 
-
 var app = express();
-app.use(bodyparser.urlencoded({
-    extended: true
-}));
+app.use(
+  bodyparser.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyparser.json());
-app.set('views', path.join(__dirname, '/views/'));
-app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/' }));
-app.set('view engine', 'hbs');
+app.set("views", path.join(__dirname, "/views/"));
+app.engine(
+  "hbs",
+  exphbs({
+    extname: "hbs",
+    defaultLayout: "mainLayout",
+    layoutsDir: __dirname + "/views/layouts/",
+  })
+);
+app.set("view engine", "hbs");
 
 const { DB, PORT } = require("./config");
 
-
-
-
 // Bring in the app constants
-
 
 //initialise the application
 //const app = express();
@@ -44,12 +46,16 @@ require("./middlewares/passport")(passport);
 
 //User Router Middlewares
 
-app.use("/api/users", userRouter);
+app.use("/api/v1/users", userRouter);
 
 app.use("/api/v1/products", productRouter);
-app.get("/",(req,res)=>{
+
+// app.use("/api/v1/savedProducts")
+
+// Test route
+app.get("/", (req, res) => {
   res.send(`hello`);
-})
+});
 
 const startApp = async () => {
   try {
