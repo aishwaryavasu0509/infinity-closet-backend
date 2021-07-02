@@ -9,6 +9,9 @@ router
   .get(productController.getAllProducts)
   .post(productController.addProduct);
 
+router.route("/deleteCategory").patch(productController.deleteCategory);
+router.route("/restoreCategory").patch(productController.restoreCategory);
+
 router
   .route("/:id")
   .get(productController.getSingleProduct)

@@ -99,6 +99,24 @@ To get the items in the wishlist:
 	GET http://localhost:5000/api/v1/users/wishlistItems?id=id1,id2    (this returns the product with the mentioned IDs)
 
 
+---------------------------------------------------------------------------------------------
+DELETING AND RESTORING PRODUCTS BASED ON CATEGORY
+
+To delete a product based on a category
+  PATCH http://localhost:5000/api/v1/products/deleteCategory
+  body should contain:
+  {
+    "category":""
+  }
+
+To restore a product based on category
+  PATCH http://localhost:5000/api/v1/products/restoreCategory
+  body should contain:
+  {
+    "category":""
+  }
+
+
 --------------------------------------------------------------------------------------
 -----------Product Schema--------------------------------
 

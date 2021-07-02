@@ -5,10 +5,12 @@ const UserSchema = new Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
+      trim: true,
     },
     role: {
       type: String,
@@ -18,10 +20,12 @@ const UserSchema = new Schema(
     username: {
       type: String,
       required: true,
+      trim: true,
     },
     password: {
       type: String,
       required: true,
+      trim: true,
     },
     cartItems: [String],
     wishlistItems: [String],
