@@ -46,64 +46,43 @@ exports.addProduct = async (req, res) => {
   }
 };
 
-
-// Get Cart Items
-exports.getCartItems = async (req, res) => {
+// Get single item
+exports.getSingleProduct = async (req, res) => {
   try {
-    const IDs = req.query.id.split(",");
-    const cartItems = await Product.find({ _id: { $in: IDs } });
+    const product = await Product.findById(req.params.id);
     res.status(200).send({
       status: "success",
-      result: cartItems.length,
-      data:cartItems
+      result: product.length,
+      data: product,
     });
+    // const product = await Product.findById()
   } catch (error) {
-    res.status(400).json({
+    res.status(404).json({
       status: "fail",
       message: error,
     });
   }
 };
 
-
-// Get single item
-exports.getSingleProduct = async(req, res) =>{
-  try {
-    const product = await Product.findById(req.params.id);
-    
-    res.status(200).send({ 
-      status: 'success',
-      result: product.length,
-      data: product
-    })
-    // const product = await Product.findById()
-  } catch (error) {
-    res.status(404).json({
-      status: "fail",
-      message: error
-    })
-  }
-}
-
 // Update product
 exports.updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body,{
-      new:true,
-      runValidators: true
-    })
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
     res.status(202).json({
-      status: 'success',
+      status: "success",
       data: product,
-    })
+    });
   } catch (error) {
     res.status(404).json({
       status: "fail",
-      message: error
-    })
+      message: error,
+    });
   }
-}
+};
 
 // Delete product
 exports.deleteProduct = async (req, res) => {
@@ -111,11 +90,11 @@ exports.deleteProduct = async (req, res) => {
     const deleteProduct = await Product.findByIdAndDelete(req.params.id);
     res.status(204).send({
       status: "success",
-    })
+    });
   } catch (error) {
     res.status(404).json({
       status: "fail",
-      message: error
-    })
+      message: error,
+    });
   }
-}
+};

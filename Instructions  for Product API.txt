@@ -8,15 +8,15 @@ How to run?
 
 
 To get all products:
-	GET  http://localhost:4000/api/v1/products/       
+	GET  http://localhost:5000/api/v1/products/       
 
 Product Filters:
 	get by category:
- 	GET http://localhost:4000/api/v1/products?category=<your category>&size=<your size>
+ 	GET http://localhost:5000/api/v1/products?category=<your category>&size=<your size>
 	// you can mention any number of fields which are avaliable in the schema
 
 	get as per condition:
-	GET http://localhost:4000/api/v1/products?originalPrice[gte]=500    (in this way you can mention any number of fields)
+	GET http://localhost:5000/api/v1/products?originalPrice[gte]=500    (in this way you can mention any number of fields)
 	// This gives the products with price greater than or equal to 500
 	// [gte] = greater than or equal to
 	// [lte] = lesser than or equal to
@@ -24,38 +24,40 @@ Product Filters:
 	// [gt] = greater than
 
 	get in sorted order:
-	GET http://localhost:4000/api/v1/products?sort=originalPrice   (this gives products in sorted order of originalPrice ascending order)
-	GET http://localhost:4000/api/v1/products?sort=-originalPrice   (this gives products in sorted order of originalPrice decending order)
+	GET http://localhost:5000/api/v1/products?sort=originalPrice   (this gives products in sorted order of originalPrice ascending order)
+	GET http://localhost:5000/api/v1/products?sort=-originalPrice   (this gives products in sorted order of originalPrice decending order)
 	// You can mention any number of fields by apending in this way:      sort=originalPrice,discountedPrice
 
 	 getting only limited fields:
-	GET http://localhost:4000/api/v1/products?field=name,price  (this will only return name and the price)
+	GET http://localhost:5000/api/v1/products?field=name,price  (this will only return name and the price)
 
 	getting products in pages:
-	GET http://localhost:4000/api/v1/products?page=1&limit=10   (this will return first 10 products, and if you change the page number it will return next 10 products skipping the first 10)(you can also increase the limit)
+	GET http://localhost:5000/api/v1/products?page=1&limit=10   (this will return first 10 products, and if you change the page number it will return next 10 products skipping the first 10)(you can also increase the limit)
 
 
 
 To add the product:
-	POST http://localhost:4000/api/v1/products/
+	POST http://localhost:5000/api/v1/products/
 	body as per the Schema mentioned below
 
 To get the items in the cart:
-	GET http://localhost:4000/api/v1/products?id=id1,id2,id3    (this returns the product with the mentioned IDs)
+	GET http://localhost:5000/api/v1/products?id=id1,id2,id3    (this returns the product with the mentioned IDs)
 
 
 To get the single product:
-	GET http://localhost:4000/api/v1/products/ID   (this will return only single product)
+	GET http://localhost:5000/api/v1/products/ID   (this will return only single product)
 
 To update the product:
-	PATCH http://localhost:4000/api/v1/products/ID
+	PATCH http://localhost:5000/api/v1/products/ID
 	and in mention the changes in the body 
 
 To delete the product:
-	DELETE http://localhost:4000/api/v1/products/ID
+	DELETE http://localhost:5000/api/v1/products/ID
 
 
+CART AND WISHLIST
 
+To add 
 
 
 Product Schema:
