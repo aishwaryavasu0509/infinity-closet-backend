@@ -2,10 +2,11 @@ How to run?
 	1)Download the project 
 	2)Run command:  
 		npm install
-		nodemon start   OR     node server.js
+		nodemon start     OR     node index.js
 
-3) add the final code
 
+--------------------------------------------------------------------------------------------------------
+--------product related routes----------
 
 To get all products:
 	GET  http://localhost:5000/api/v1/products/       
@@ -36,13 +37,12 @@ Product Filters:
 
 
 
+----------------------------------------------------------------------------------------------------------
+
+
 To add the product:
 	POST http://localhost:5000/api/v1/products/
 	body as per the Schema mentioned below
-
-To get the items in the cart:
-	GET http://localhost:5000/api/v1/products?id=id1,id2,id3    (this returns the product with the mentioned IDs)
-
 
 To get the single product:
 	GET http://localhost:5000/api/v1/products/ID   (this will return only single product)
@@ -55,25 +55,76 @@ To delete the product:
 	DELETE http://localhost:5000/api/v1/products/ID
 
 
-CART AND WISHLIST
+---------------------------------------------------------------------------------------------------------
+---------------------------------------CART AND WISHLIST--------------------
 
-To add 
+To ADD the product to the cart:
+  POST http://localhost:5000/api/v1/users/addToCart
+  body should contain:
+      {
+        "userID":"",
+        "productID":""
+      }
 
 
-Product Schema:
-{
+To ADD the product to the wish list:
+  POST http://localhost:5000/api/v1/users/addToWishlist
+  body should contain:
+      {
+        "userID":"",
+        "productID":""
+      }
+
+To DELETE the product from the cart:
+  PATCH http://localhost:5000/api/v1/users/removeFromCart
+  body should contain:
+      {
+        "userID":"",
+        "productID":""
+      }
+
+To DELETE the product from the wish removeFromWishlist:
+  PATCH http://localhost:5000/api/v1/users/removeFromCart
+  body should contain:
+      {
+        "userID":"",
+        "productID":""
+      }
+
+To get the items in the cart:
+	GET http://localhost:5000/api/v1/users/cartItems?id=id1,id2    (this returns the product with the mentioned IDs)
+
+
+To get the items in the wishlist:
+	GET http://localhost:5000/api/v1/users/wishlistItems?id=id1,id2    (this returns the product with the mentioned IDs)
+
+
+--------------------------------------------------------------------------------------
+-----------Product Schema--------------------------------
+
+
+  {
     name: {
       type: String,
-      required: (true, "A product must have a name"),
+      required: [true, "A product must have a name"],
       trim: true,
+      maxlength: [40, "A product name must have less than 40 characters"],
+      minlength: [6, "A product name must have more than 6 characters"],
     },
     originalPrice: {
       type: Number,
-      required: (true, "A product must have originalPrice"),
+      required: [true, "A product must have originalPrice"],
     },
-    originalPrice: {
+    discountedPrice: {
       type: Number,
-      required: (true, "A product must have originalPrice"),
+      required: [true, "A product must have discountedPrice"],
+      validate:{
+        validator:function(value) {
+          // This only ppoints while creating NEW doc and not updating
+          return value<this.originalPrice;
+        },
+        message: "Discount price {{VALUE}} must be less than  regular price"
+      }
     },
     inStock: {
       type: Boolean,
@@ -81,17 +132,17 @@ Product Schema:
     },
     description: {
       type: String,
-      required: (true, "A product must have description"),
+      required: [true, "A product must have description"],
       trim: true,
     },
     size: {
       type: String,
-      required: (true, "A product must have size"),
+      required: [true, "A product must have size"],
       trim: true,
     },
     color: {
       type: String,
-      required: (true, "A product must have color"),
+      required: [true, "A product must have color"],
       trim: true,
     },
     brand: {
@@ -100,17 +151,17 @@ Product Schema:
     },
     occasion: {
       type: String,
-      required: (true, "A product must have occasion"),
+      required: [true, "A product must have occasion"],
       trim: true,
     },
     season: {
       type: String,
-      required: (true, "A product must have season"),
+      required: [true, "A product must have season"],
       trim: true,
     },
     category: {
       type: String,
-      required: (true, "A product must have category"),
+      required: [true, "A product must have category"],
       trim: true,
     },
   }
