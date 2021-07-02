@@ -7,11 +7,33 @@ const { success, error } = require("consola");
 const productRouter = require("./routes/productRouter");
 const userRouter = require("./routes/users");
 
-// Bring in the app constants
+
+
+//const express = require('express');
+const path = require('path');
+const exphbs = require('express-handlebars');
+//const bodyparser = require('body-parser');
+
+
+var app = express();
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
+app.use(bodyparser.json());
+app.set('views', path.join(__dirname, '/views/'));
+app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/' }));
+app.set('view engine', 'hbs');
+
 const { DB, PORT } = require("./config");
 
+
+
+
+// Bring in the app constants
+
+
 //initialise the application
-const app = express();
+//const app = express();
 
 //Middlewares
 app.use(cors());
@@ -25,6 +47,9 @@ require("./middlewares/passport")(passport);
 app.use("/api/users", userRouter);
 
 app.use("/api/v1/products", productRouter);
+app.get("/",(req,res)=>{
+  res.send(`hello`);
+})
 
 const startApp = async () => {
   try {
