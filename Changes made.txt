@@ -1,0 +1,17 @@
+Changes made to the route:
+
+-----------------------------------------------------------------------------------------------------
+
+User related routes:
+
+http://localhost:5000/api/users
+are converted into 
+http://localhost:5000/api/v1/users
+
+---------------------------------------------------------------------------------------------------
+
+Getting the cart items:
+
+http://localhost:5000/api/v1/products/cartItems?id=ID1,ID2
+are converted to
+http://localhost:5000/api/v1/users/cartItems?id=ID1,ID2

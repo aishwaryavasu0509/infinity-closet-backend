@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema(
       required: [true, "A product must have a name"],
       trim: true,
       maxlength: [40, "A product name must have less than 40 characters"],
-      minlength: [6, "A product name must have more than 6 characters"],
+      minlength: [3, "A product name must have more than 3 characters"],
     },
     originalPrice: {
       type: Number,
@@ -62,12 +62,21 @@ const productSchema = new mongoose.Schema(
       required: [true, "A product must have category"],
       trim: true,
     },
+    isActive: {
+      type: Boolean,
+      default: true
+    }
   },
   {
     collection: "products",
     timestamps: true,
   }
 );
+
+productSchema.pre(/^find/, function(next){
+  this.find({isActive: {$ne: false}});
+  next();
+})
 
 const Product = mongoose.model("product", productSchema);
 
