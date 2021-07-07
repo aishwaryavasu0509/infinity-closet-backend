@@ -114,7 +114,9 @@ exports.deleteCategory = async (req, res) => {
       },
       { multi: true }
     );
-    res.send("ok");
+    res.status(202).json({
+      status: "success",
+    });
   } catch (err) {
     console.log(err);
     res.status(404).json({
@@ -126,7 +128,7 @@ exports.deleteCategory = async (req, res) => {
 
 exports.restoreCategory = async (req, res) => {
   try {
-    const deleteProduct = await Product.updateMany(
+    const restoreProduct = await Product.updateMany(
       {
         category: req.body.category,
       },
@@ -137,7 +139,59 @@ exports.restoreCategory = async (req, res) => {
       },
       { multi: true }
     );
-    res.send("ok");
+    res.status(202).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};
+
+exports.deleteBrand = async (req, res) => {
+  try {
+    const deleteBrand = await Product.updateMany(
+      {
+        brand: req.body.brand,
+      },
+      {
+        $set: {
+          isActive: false,
+        },
+      },
+      { multi: true }
+    );
+    res.status(202).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};
+
+exports.restoreBrand = async (req, res) => {
+  try {
+    const restoreBrand = await Product.updateMany(
+      {
+        brand: req.body.brand,
+      },
+      {
+        $set: {
+          isActive: true,
+        },
+      },
+      { multi: true }
+    );
+    res.status(201).json({
+      status: "success",
+    });
   } catch (err) {
     console.log(err);
     res.status(404).json({
