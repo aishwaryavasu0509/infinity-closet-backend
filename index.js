@@ -6,6 +6,7 @@ const { connect } = require("mongoose");
 const { success, error } = require("consola");
 const productRouter = require("./routes/productRouter");
 const userRouter = require("./routes/userRouter");
+const orderRouter = require("./routes/orderRouter");
 
 //const express = require('express');
 const path = require("path");
@@ -49,6 +50,8 @@ require("./middlewares/passport")(passport);
 app.use("/api/v1/users", userRouter);
 
 app.use("/api/v1/products", productRouter);
+
+app.use("/api/v1/orders", orderRouter);
 
 // app.use("/api/v1/savedProducts")
 

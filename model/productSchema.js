@@ -16,13 +16,13 @@ const productSchema = new mongoose.Schema(
     discountedPrice: {
       type: Number,
       required: [true, "A product must have discountedPrice"],
-      validate:{
-        validator:function(value) {
+      validate: {
+        validator: function (value) {
           // This only ppoints while creating NEW doc and not updating
-          return value<this.originalPrice;
+          return value < this.originalPrice;
         },
-        message: "Discount price {{VALUE}} must be less than  regular price"
-      }
+        message: "Discount price {{VALUE}} must be less than  regular price",
+      },
     },
     inStock: {
       type: Boolean,
@@ -64,8 +64,8 @@ const productSchema = new mongoose.Schema(
     },
     isActive: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   {
     collection: "products",
@@ -73,11 +73,11 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-productSchema.pre(/^find/, function(next){
-  this.find({isActive: {$ne: false}});
+productSchema.pre(/^find/, function (next) {
+  this.find({ isActive: { $ne: false } });
   next();
-})
+});
 
-const Product = mongoose.model("product", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
