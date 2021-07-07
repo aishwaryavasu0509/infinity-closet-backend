@@ -12,6 +12,9 @@ router
 router.route("/deleteCategory").patch(productController.deleteCategory);
 router.route("/restoreCategory").patch(productController.restoreCategory);
 
+router.route("/deleteBrand").patch(productController.deleteBrand);
+router.route("/restoreBrand").patch(productController.restoreBrand);
+
 router
   .route("/:id")
   .get(productController.getSingleProduct)
