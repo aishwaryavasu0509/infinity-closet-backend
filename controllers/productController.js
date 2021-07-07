@@ -66,8 +66,8 @@ exports.getSingleProduct = async (req, res) => {
 
 // Update product
 exports.updateProduct = async (req, res) => {
-  console.log(req);
-  console.log(req.body);
+  // console.log(req);
+  // console.log(req.body);
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -105,7 +105,7 @@ exports.deleteCategory = async (req, res) => {
   try {
     const deleteProduct = await Product.updateMany(
       {
-        "category" : req.body.category
+        category: req.body.category,
       },
       {
         $set: {
@@ -124,12 +124,11 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-
 exports.restoreCategory = async (req, res) => {
   try {
     const deleteProduct = await Product.updateMany(
       {
-        "category" : req.body.category
+        category: req.body.category,
       },
       {
         $set: {
