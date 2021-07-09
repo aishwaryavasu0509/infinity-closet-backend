@@ -66,8 +66,8 @@ exports.getSingleProduct = async (req, res) => {
 
 // Update product
 exports.updateProduct = async (req, res) => {
-  console.log(req);
-  console.log(req.body);
+  // console.log(req);
+  // console.log(req.body);
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -105,7 +105,7 @@ exports.deleteCategory = async (req, res) => {
   try {
     const deleteProduct = await Product.updateMany(
       {
-        "category" : req.body.category
+        category: req.body.category,
       },
       {
         $set: {
@@ -114,7 +114,9 @@ exports.deleteCategory = async (req, res) => {
       },
       { multi: true }
     );
-    res.send("ok");
+    res.status(202).json({
+      status: "success",
+    });
   } catch (err) {
     console.log(err);
     res.status(404).json({
@@ -124,12 +126,11 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-
 exports.restoreCategory = async (req, res) => {
   try {
-    const deleteProduct = await Product.updateMany(
+    const restoreProduct = await Product.updateMany(
       {
-        "category" : req.body.category
+        category: req.body.category,
       },
       {
         $set: {
@@ -138,7 +139,59 @@ exports.restoreCategory = async (req, res) => {
       },
       { multi: true }
     );
-    res.send("ok");
+    res.status(202).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};
+
+exports.deleteBrand = async (req, res) => {
+  try {
+    const deleteBrand = await Product.updateMany(
+      {
+        brand: req.body.brand,
+      },
+      {
+        $set: {
+          isActive: false,
+        },
+      },
+      { multi: true }
+    );
+    res.status(202).json({
+      status: "success",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({
+      status: "fail",
+      message: error,
+    });
+  }
+};
+
+exports.restoreBrand = async (req, res) => {
+  try {
+    const restoreBrand = await Product.updateMany(
+      {
+        brand: req.body.brand,
+      },
+      {
+        $set: {
+          isActive: true,
+        },
+      },
+      { multi: true }
+    );
+    res.status(201).json({
+      status: "success",
+    });
   } catch (err) {
     console.log(err);
     res.status(404).json({

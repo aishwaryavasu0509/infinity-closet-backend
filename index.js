@@ -6,6 +6,7 @@ const { connect } = require("mongoose");
 const { success, error } = require("consola");
 const productRouter = require("./routes/productRouter");
 const userRouter = require("./routes/userRouter");
+const orderRouter = require("./routes/orderRouter");
 
 //const express = require('express');
 const path = require("path");
@@ -52,6 +53,9 @@ app.use("/api/v1/products", productRouter);
 
 
 app.use('/user',require('./routes/imageRouter'));
+app.use("/api/v1/orders", orderRouter);
+
+// app.use("/api/v1/savedProducts")
 
 // Test route
 app.get("/", (req, res) => {

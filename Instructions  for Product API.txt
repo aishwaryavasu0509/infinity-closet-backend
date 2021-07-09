@@ -100,7 +100,7 @@ To get the items in the wishlist:
 
 
 ---------------------------------------------------------------------------------------------
-DELETING AND RESTORING PRODUCTS BASED ON CATEGORY
+DELETING AND RESTORING PRODUCTS BASED ON CATEGORY/BRAND
 
 To delete a product based on a category
   PATCH http://localhost:5000/api/v1/products/deleteCategory
@@ -116,10 +116,49 @@ To restore a product based on category
     "category":""
   }
 
+To delete a product based on a brand
+  PATCH http://localhost:5000/api/v1/products/deleteBrand
+  body should contain:
+  {
+    "brand":""
+  }
+
+To restore a product based on brand
+  PATCH http://localhost:5000/api/v1/products/restoreBrand
+  body should contain:
+  {
+    "brand":""
+  }
+
+--------------------------------------------------------------------------------------------
+-----------------------Product RENT/ORDER routes--------------------------------------------
+
+To create a new order 
+  POST http://localhost:5000/api/v1/orders
+  body should contain the data mentioned below in the schema
+
+To update the order status:
+  PATCH http://localhost:5000/api/v1/orders/<orderID>
+  body should contain:
+  {
+    "<>":"<>"
+  }
+
+To get all the details of all the orders:
+  GET http://localhost:5000/api/v1/orders
+
+To get details of only one order:
+  GET http://localhost:5000/api/v1/orders/<orderID>
+
+To get the orders of the particular user:
+  GET http://localhost:5000/api/v1/orders/getuserorders?id=id1,id2
+  (the array of orderID will be in the user schema)
+  (whenever the user makes a new order, the order ID will be stored in his collection)
+
+
 
 --------------------------------------------------------------------------------------
 -----------Product Schema--------------------------------
-
 
   {
     name: {

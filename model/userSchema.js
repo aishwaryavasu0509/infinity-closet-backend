@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongoose = require("mongoose");
 
 const UserSchema = new Schema(
   {
@@ -29,8 +30,9 @@ const UserSchema = new Schema(
     },
     cartItems: [String],
     wishlistItems: [String],
+    myOrders: [String],
   },
   { timestamps: true }
 );
 
-module.exports = model("users", UserSchema);
+module.exports = model("User", UserSchema);
