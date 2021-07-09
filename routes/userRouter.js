@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const userController = require("../controllers/userController");
 
+
 //Bring in the User Registration function
 const {
   userRegister,
@@ -83,6 +84,8 @@ router.get(
     return res.json("super admin and admin");
   }
 );
+
+
 
 // PRODUCTS RELATED TO THE USER [routes]
 

@@ -30,7 +30,7 @@ app.engine(
 );
 app.set("view engine", "hbs");
 
-const { DB, PORT } = require("./config");
+const { DB, PORT, CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET_KEY} = require("./config");
 
 // Bring in the app constants
 
@@ -50,7 +50,8 @@ app.use("/api/v1/users", userRouter);
 
 app.use("/api/v1/products", productRouter);
 
-// app.use("/api/v1/savedProducts")
+
+app.use('/user',require('./routes/imageRouter'));
 
 // Test route
 app.get("/", (req, res) => {
