@@ -43,6 +43,12 @@ const orderSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    dateOfOrder: {
+      type: Date,
+    },
+    dateOfDelivery: {
+      type: Date,
+    },
     shippingAddress: {
       state: String,
       city: String,
