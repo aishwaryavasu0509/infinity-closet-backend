@@ -62,13 +62,25 @@ const productSchema = new mongoose.Schema(
       required: [true, "A product must have category"],
       trim: true,
     },
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+      min: [1, "Rating must be above 1"],
+      max: [5, "Rating must be less than 5"],
+      set: (val) => Math.round(val * 10) / 10, //This will round the value 4.666, 46.666, 47,4.7
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
     isActive: {
       type: Boolean,
       default: true,
     },
   },
   {
-    collection: "products",
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
     timestamps: true,
   }
 );
@@ -76,6 +88,12 @@ const productSchema = new mongoose.Schema(
 productSchema.pre(/^find/, function (next) {
   this.find({ isActive: { $ne: false } });
   next();
+});
+
+productSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "product",
+  localField: "_id",
 });
 
 const Product = mongoose.model("Product", productSchema);
