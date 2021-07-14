@@ -49,7 +49,7 @@ exports.addProduct = async (req, res) => {
 // Get single item
 exports.getSingleProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate("reviews");
     res.status(200).send({
       status: "success",
       result: product.length,
@@ -66,8 +66,6 @@ exports.getSingleProduct = async (req, res) => {
 
 // Update product
 exports.updateProduct = async (req, res) => {
-  // console.log(req);
-  // console.log(req.body);
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

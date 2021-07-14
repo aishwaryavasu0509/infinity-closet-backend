@@ -4,9 +4,11 @@ const bodyparser = require("body-parser");
 const passport = require("passport");
 const { connect } = require("mongoose");
 const { success, error } = require("consola");
+
 const productRouter = require("./routes/productRouter");
 const userRouter = require("./routes/userRouter");
 const orderRouter = require("./routes/orderRouter");
+const reviewRouter = require("./routes/reviewRouter");
 
 //const express = require('express');
 const path = require("path");
@@ -31,7 +33,13 @@ app.engine(
 );
 app.set("view engine", "hbs");
 
-const { DB, PORT, CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET_KEY} = require("./config");
+const {
+  DB,
+  PORT,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET_KEY,
+} = require("./config");
 
 // Bring in the app constants
 
@@ -51,8 +59,10 @@ app.use("/api/v1/users", userRouter);
 
 app.use("/api/v1/products", productRouter);
 
+app.use("/api/v1/reviews", reviewRouter);
 
-app.use('/user',require('./routes/imageRouter'));
+app.use("/user", require("./routes/imageRouter"));
+
 app.use("/api/v1/orders", orderRouter);
 
 // app.use("/api/v1/savedProducts")
