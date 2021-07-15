@@ -71,7 +71,23 @@ exports.updateOrder = async (req, res) => {
   }
 };
 
-exports.getUserOrders = async (req, res) => {
+exports.getUserOrder = async (req, res) => {
+  try {
+    const order = await Order.findOne({ userId : req.params.userId});
+    res.status(202).json({
+      status: "success",
+      data: order,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      status: "error",
+      error: err,
+    });
+  }
+};
+
+exports.getMultipleOrders = async (req, res) => {
   console.log(req.query.id);
   try {
     const IDs = req.query.id.split(",");
