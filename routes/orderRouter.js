@@ -8,7 +8,9 @@ router
   .post(orderController.newOrder)
   .get(orderController.getAllOrders);
 
-router.get("/getuserorders", orderController.getUserOrders);
+router.get("/getuserorders/:userId", orderController.getUserOrder);
+
+router.get("/getmultipleorders", orderController.getMultipleOrders);
 
 router
   .route("/:id")
